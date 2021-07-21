@@ -1,12 +1,21 @@
 namespace SocialApp.Domain.Posts.Entities;
 
-public class PostEntity
+public sealed class PostEntity
 {
-    public PostEntity(Guid id, string title, string body)
+    private PostEntity(Guid id, string title, string body)
     {
         Id = id;
         Title = title;
         Body = body;
+    }
+
+    public static PostEntity Create(string title, string body)
+    {
+        return new PostEntity(
+            id: Guid.NewGuid(),
+            title: title,
+            body: body
+        );
     }
 
     public Guid Id { get; }
