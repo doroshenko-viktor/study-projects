@@ -7,13 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- <PackageReference Include="MediatR" Version="10.0.1" /> -->
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SocialApp.Application\SocialApp.Application.csproj" />
     <ProjectReference Include="..\SocialApp.Infrastructure.Mongo\SocialApp.Infrastructure.Mongo.csproj" />
+    <ProjectReference Include="..\SocialApp.Application.Users\SocialApp.Application.Users.csproj" />
+    <ProjectReference Include="..\SocialApp.Application.Posts\SocialApp.Application.Posts.csproj" />
   </ItemGroup>
 
 </Project>

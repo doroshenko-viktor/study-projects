@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SocialApp.Domain.Common\SocialApp.Domain.Common.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SocialApp.Application.Commands;
 using SocialApp.Application.Configuration;
+using SocialApp.Application.Posts.Dto.Commands;
+using SocialApp.Domain.Common.Exceptions;
 using SocialApp.Infrastructure.Mongo.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.SetupApplication();
+builder.Services.SetupPostsApplication();
 builder.Services.SetupRepositories(options => builder.Configuration.GetSection("MongoSettings").Bind(options));
 
 var app = builder.Build();
@@ -19,16 +20,20 @@ app.MapPost("/api/v1/posts", async (
     [FromBody] CreatePostCommand post
 ) =>
 {
-    var result = await mediator.Send(post);
-    if (result.Success)
+    try
     {
-        return Results.Ok(result.Post);
+        var result = await mediator.Send(post);
+        return Results.Ok(result);
     }
-    if (result.ValidationResult is not null)
+    catch (ValidationException e)
     {
-        return Results.BadRequest(result.ValidationResult);
+        if (e.ValidationResult is not null)
+        {
+            return Results.BadRequest(e.ValidationResult);
+        }
+
+        return Results.BadRequest(e.Message);
     }
-    return Results.BadRequest();
 });
 
 if (app.Environment.IsDevelopment())

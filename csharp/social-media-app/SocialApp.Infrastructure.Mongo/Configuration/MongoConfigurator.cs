@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using SocialApp.Application.Posts.Interfaces.Repositories;
+using SocialApp.Domain.Posts.Interfaces.Repositories;
 using SocialApp.Infrastructure.Mongo.Posts;
 using SocialApp.Infrastructure.Mongo.Posts.DAO;
 

@@ -1,6 +1,6 @@
 using SocialApp.Domain.Posts.Entities;
 
-namespace SocialApp.Application.Posts.Interfaces.Repositories;
+namespace SocialApp.Domain.Posts.Interfaces.Repositories;
 
 public interface IPostsRepository
 {

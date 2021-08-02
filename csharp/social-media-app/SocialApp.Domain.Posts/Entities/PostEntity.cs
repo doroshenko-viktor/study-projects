@@ -18,7 +18,7 @@ public sealed class PostEntity
         );
     }
 
-    public Guid Id { get; }
-    public string Title { get; }
-    public string Body { get; }
+    public Guid Id { get; private set; }
+    public string Title { get; private set; }
+    public string Body { get; private set; }
 }

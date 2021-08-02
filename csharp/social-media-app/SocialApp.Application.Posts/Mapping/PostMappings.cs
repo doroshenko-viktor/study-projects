@@ -1,5 +1,5 @@
-using SocialApp.Application.Commands;
 using SocialApp.Application.Exceptions;
+using SocialApp.Application.Posts.Dto.Commands;
 using SocialApp.Domain.Posts.Entities;
 
 namespace SocialApp.Application.Posts.Mapping;
