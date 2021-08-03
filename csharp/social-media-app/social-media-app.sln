@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialApp.Application.Users
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialApp.Domain.Common", "SocialApp.Domain.Common\SocialApp.Domain.Common.csproj", "{D9B7054D-DCFF-4662-B407-0C624D805EDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialApp.Contracts", "SocialApp.Contracts\SocialApp.Contracts.csproj", "{CF07DD59-11B3-42DB-AF66-A44C73D5582D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialApp.Infrastructure.Common", "SocialApp.Infrastructure.Common\SocialApp.Infrastructure.Common.csproj", "{43DBACA0-6935-484C-80DE-984C52EF0D9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,5 +58,13 @@ Global
 		{D9B7054D-DCFF-4662-B407-0C624D805EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9B7054D-DCFF-4662-B407-0C624D805EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9B7054D-DCFF-4662-B407-0C624D805EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF07DD59-11B3-42DB-AF66-A44C73D5582D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF07DD59-11B3-42DB-AF66-A44C73D5582D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF07DD59-11B3-42DB-AF66-A44C73D5582D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF07DD59-11B3-42DB-AF66-A44C73D5582D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43DBACA0-6935-484C-80DE-984C52EF0D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43DBACA0-6935-484C-80DE-984C52EF0D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43DBACA0-6935-484C-80DE-984C52EF0D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43DBACA0-6935-484C-80DE-984C52EF0D9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

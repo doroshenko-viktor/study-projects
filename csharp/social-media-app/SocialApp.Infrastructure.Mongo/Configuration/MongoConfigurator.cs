@@ -22,7 +22,7 @@ public static class MongoConfigurator
             return new MongoClient(options.Value.ConnectionString);
         });
 
-        services.AddSingleton(sp =>
+        services.AddSingleton<IMongoCollection<PostMongoDAO>>(sp =>
         {
             var mongoClient = sp.GetRequiredService<IMongoClient>();
             return mongoClient.GetDatabase("social-app").GetCollection<PostMongoDAO>("posts");

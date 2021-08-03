@@ -1,9 +1,12 @@
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SocialApp.Application.Configuration;
 using SocialApp.Application.Posts.Dto.Commands;
+using SocialApp.Contracts.Posts;
 using SocialApp.Domain.Common.Exceptions;
 using SocialApp.Infrastructure.Mongo.Configuration;
+using SocialApp.WebApi.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,18 +15,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.SetupPostsApplication();
 builder.Services.SetupRepositories(options => builder.Configuration.GetSection("MongoSettings").Bind(options));
+builder.Services.AddAutoMapper(mapperConfiguration => mapperConfiguration.AddProfile<PostsProfile>());
 
 var app = builder.Build();
 
-app.MapPost("/api/v1/posts", async (
-    [FromServices] IMediator mediator,
-    [FromBody] CreatePostCommand post
-) =>
+var mapper = app.Services.GetRequiredService<IMapper>();
+
+app.MapPost("/api/v1/posts", async ([FromServices] IMediator mediator, [FromBody] CreatePostDto post) =>
 {
     try
     {
-        var result = await mediator.Send(post);
-        return Results.Ok(result);
+        var command = mapper.Map<CreatePostCommand>(post);
+        var result = await mediator.Send(command);
+        var resultDto = mapper.Map<PostDto>(result);
+        return Results.Ok(resultDto);
     }
     catch (ValidationException e)
     {

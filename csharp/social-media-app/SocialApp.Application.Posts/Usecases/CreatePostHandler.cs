@@ -30,7 +30,7 @@ public class CreatePostHandler : IRequestHandler<CreatePostCommand, PostEntity>
         await Validate(request, ct);
 
         var postEntity = request.ToEntity();
-        await _repository.CreatePost(postEntity);
+        await _repository.Insert(postEntity);
 
         return postEntity;
     }

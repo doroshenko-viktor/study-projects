@@ -14,6 +14,8 @@
     <ProjectReference Include="..\SocialApp.Infrastructure.Mongo\SocialApp.Infrastructure.Mongo.csproj" />
     <ProjectReference Include="..\SocialApp.Application.Users\SocialApp.Application.Users.csproj" />
     <ProjectReference Include="..\SocialApp.Application.Posts\SocialApp.Application.Posts.csproj" />
+    <ProjectReference Include="..\SocialApp.Contracts\SocialApp.Contracts.csproj" />
+    <ProjectReference Include="..\SocialApp.Infrastructure.Common\SocialApp.Infrastructure.Common.csproj" />
   </ItemGroup>
 
 </Project>
