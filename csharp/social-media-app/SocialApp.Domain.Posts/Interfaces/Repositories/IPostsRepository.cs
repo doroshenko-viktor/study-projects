@@ -4,5 +4,6 @@ namespace SocialApp.Domain.Posts.Interfaces.Repositories;
 
 public interface IPostsRepository
 {
-    Task CreatePost(PostEntity post);
+    Task Insert(PostEntity post);
+    Task<PostEntity> Get(Guid id);
 }

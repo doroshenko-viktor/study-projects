@@ -5,6 +5,7 @@ namespace SocialApp.Domain.Common.Exceptions;
 public class ValidationException : Exception
 {
     public ValidationResult? ValidationResult { get; }
+    public bool IsServerSide { get; init; } = false;
 
     private ValidationException() : base()
     {

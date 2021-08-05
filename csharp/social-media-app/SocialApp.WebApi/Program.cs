@@ -1,8 +1,10 @@
+using System;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SocialApp.Application.Configuration;
 using SocialApp.Application.Posts.Dto.Commands;
+using SocialApp.Application.Posts.Dto.Requests;
 using SocialApp.Contracts.Posts;
 using SocialApp.Domain.Common.Exceptions;
 using SocialApp.Infrastructure.Mongo.Configuration;
@@ -38,6 +40,25 @@ app.MapPost("/api/v1/posts", async ([FromServices] IMediator mediator, [FromBody
         }
 
         return Results.BadRequest(e.Message);
+    }
+});
+
+app.MapGet("/api/v1/posts/{id}", async ([FromServices] IMediator mediator, [FromRoute] Guid id) =>
+{
+    try
+    {
+        var command = new GetPostByIdQuery(id);
+        var result = await mediator.Send(command);
+        var resultDto = mapper.Map<PostDto>(result);
+        return Results.Ok(resultDto);
+    }
+    catch (EntityNotFoundException)
+    {
+        return Results.NotFound();
+    }
+    catch (ValidationException e) when (e.IsServerSide)
+    {
+        return Results.UnprocessableEntity(e);
     }
 });
 

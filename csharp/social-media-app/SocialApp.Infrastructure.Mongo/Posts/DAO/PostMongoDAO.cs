@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace SocialApp.Infrastructure.Mongo.Posts.DAO;
 
-public readonly record struct PostMongoDAO
+public record PostMongoDAO
 {
     [BsonId(IdGenerator = typeof(GuidGenerator)), BsonRepresentation(BsonType.String)]
     public Guid? Id { get; init; }
