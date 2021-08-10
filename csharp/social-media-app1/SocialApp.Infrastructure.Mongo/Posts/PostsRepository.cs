@@ -1,8 +1,6 @@
 using MongoDB.Driver;
-using SocialApp.Domain.Common.Exceptions;
 using SocialApp.Domain.Posts.Entities;
 using SocialApp.Domain.Posts.Interfaces.Repositories;
-using SocialApp.Infrastructure.Mongo.Factories;
 using SocialApp.Infrastructure.Mongo.Posts.DAO;
 using SocialApp.Infrastructure.Mongo.Posts.Mapping;
 

@@ -5,18 +5,18 @@ using SocialApp.Domain.Posts.Interfaces.Repositories;
 
 namespace SocialApp.Application.Posts.Usecases;
 
-public class GetPostByIdHandler : IRequestHandler<GetPostByIdQuery, PostEntity>
+public class GetAllPostsHandler : IStreamRequestHandler<GetAllPostsQuery, PostEntity>
 {
     private readonly IPostsRepository _repository;
 
-    public GetPostByIdHandler(IPostsRepository repository)
+    public GetAllPostsHandler(IPostsRepository repository)
     {
         _repository = repository;
     }
 
-    public Task<PostEntity> Handle(GetPostByIdQuery request, CancellationToken cancellationToken)
+    public IAsyncEnumerable<PostEntity> Handle(GetAllPostsQuery request, CancellationToken cancellationToken)
     {
-        var post = _repository.Get(request.Id);
-        return post;
+        var posts = _repository.Get();
+        return posts;
     }
 }

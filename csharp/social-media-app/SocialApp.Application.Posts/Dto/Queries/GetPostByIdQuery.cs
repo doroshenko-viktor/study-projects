@@ -1,7 +1,7 @@
 using MediatR;
 using SocialApp.Domain.Posts.Entities;
 
-namespace SocialApp.Application.Posts.Dto.Requests;
+namespace SocialApp.Application.Posts.Dto.Queries;
 
 public record GetPostByIdQuery : IRequest<PostEntity>
 {

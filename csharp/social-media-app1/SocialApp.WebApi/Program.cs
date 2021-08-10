@@ -3,7 +3,10 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SocialApp.Application.Configuration;
 using SocialApp.Application.Posts.Dto.Commands;
+<<<<<<< HEAD
 using SocialApp.Application.Posts.Dto.Queries;
+=======
+>>>>>>> parent of f251a22 (get post by id)
 using SocialApp.Contracts.Posts;
 using SocialApp.Domain.Common.Exceptions;
 using SocialApp.Infrastructure.Mongo.Configuration;
@@ -42,6 +45,7 @@ app.MapPost("/api/v1/posts", async ([FromServices] IMediator mediator, [FromBody
     }
 });
 
+<<<<<<< HEAD
 app.MapGet("/api/v1/posts/{id}", async ([FromServices] IMediator mediator, [FromRoute] Guid id) =>
 {
     try
@@ -68,6 +72,8 @@ app.MapGet("/api/v1/posts", async ([FromServices] IMediator mediator) =>
     return Results.Ok(res);
 });
 
+=======
+>>>>>>> parent of f251a22 (get post by id)
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
