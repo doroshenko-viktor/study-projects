@@ -68,6 +68,28 @@ app.MapGet("/api/v1/posts", async ([FromServices] IMediator mediator) =>
     return Results.Ok(res);
 });
 
+app.MapPut("/api/posts/{id}", async ([FromServices] IMediator mediator, [FromRoute] Guid id, [FromBody] PostDto post) =>
+{
+    try
+    {
+        var result = await mediator.Send(mapper.Map<UpdatePostCommand>(post) with { Id = id });
+        return Results.Ok(result);
+    }
+    catch (EntityNotFoundException)
+    {
+        return Results.NotFound();
+    }
+    catch (ValidationException e)
+    {
+        return Results.BadRequest(e.Message);
+    }
+    catch (Exception e)
+    {
+        return Results.Problem(e.Message);
+    }
+    return Results.BadRequest();
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -10,6 +10,7 @@ public class PostsProfile : Profile
     public PostsProfile()
     {
         CreateMap<CreatePostDto, CreatePostCommand>();
+        CreateMap<UpdatePostCommand, PostDto>();
         CreateMap<PostEntity, PostDto>().ReverseMap();
     }
 }
