@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using SocialApp.Domain.Posts.Interfaces.Repositories;
-using SocialApp.Infrastructure.Mongo.Posts;
+using SocialApp.Application.Posts.Interfaces.Factories;
+using SocialApp.Infrastructure.Mongo.Factories;
 using SocialApp.Infrastructure.Mongo.Posts.DAO;
 
 namespace SocialApp.Infrastructure.Mongo.Configuration;
@@ -28,7 +28,11 @@ public static class MongoConfigurator
             return mongoClient.GetDatabase("social-app").GetCollection<PostMongoDAO>("posts");
         });
 
-        services.AddScoped<IPostsRepository, PostsRepository>();
+        services.AddScoped<IPostsRepositoryFactory>(sp =>
+        {
+            var dbClient = sp.GetRequiredService<IMongoClient>();
+            return new PostsRepositoryFactory(dbClient);
+        });
 
         return services;
     }

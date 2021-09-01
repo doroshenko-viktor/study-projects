@@ -8,13 +8,36 @@ using SocialApp.Infrastructure.Mongo.Posts.Mapping;
 
 namespace SocialApp.Infrastructure.Mongo.Posts;
 
-public class PostsRepository : IPostsRepository
+public class PostsRepository : IPostsRepository, IDisposable
 {
     private readonly IMongoCollection<PostMongoDAO> _collection;
+    private readonly IClientSessionHandle _session;
 
-    public PostsRepository(IMongoCollection<PostMongoDAO> collection)
+    public PostsRepository(IMongoCollection<PostMongoDAO> collection, IClientSessionHandle session)
     {
         _collection = collection;
+        _session = session;
+    }
+
+    public void StartTransaction()
+    {
+        _session.StartTransaction();
+    }
+
+    public Task AbortTransactionAsync()
+    {
+        return _session.AbortTransactionAsync();
+    }
+
+    public Task CommitTransactionAsync()
+    {
+        return _session.CommitTransactionAsync();
+    }
+
+    public void Dispose()
+    {
+        _session.AbortTransaction();
+        _session.Dispose();
     }
 
     public async Task<PostEntity> Get(Guid id)
@@ -49,5 +72,14 @@ public class PostsRepository : IPostsRepository
     {
         var postDAO = post.ToDAO();
         await _collection.InsertOneAsync(postDAO);
+    }
+
+    public async Task Update(PostEntity post)
+    {
+        await _collection.FindOneAndUpdateAsync(x => x.Id == post.Id,
+            Builders<PostMongoDAO>.Update
+                .Set(x => x.Body, post.Body)
+                .Set(x => x.Title, post.Title)
+        );
     }
 }
