@@ -15,6 +15,8 @@ public class ValidationException : Exception
     {
     }
 
+    public ValidationException(string entityName, string message) : base($"Entity {entityName} is not valid because: {message}") { }
+
     public ValidationException(ValidationResult validationResult, string? message) : base(message)
     {
         ValidationResult = validationResult;
