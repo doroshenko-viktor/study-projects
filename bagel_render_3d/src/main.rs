@@ -1,3 +1,6 @@
+use bagel_render_3d::run;
+use std::fmt::Display;
+
 fn main() {
-    println!("Hello, world!");
+    run();
 }

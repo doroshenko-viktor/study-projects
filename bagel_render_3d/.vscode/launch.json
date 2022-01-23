@@ -1,0 +1,46 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'bagel_render-3d'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=bagel_render-3d",
+                    "--package=bagel_render-3d"
+                ],
+                "filter": {
+                    "name": "bagel_render-3d",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            // "console": "externalTerminal",
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'bagel_render-3d'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=bagel_render-3d",
+                    "--package=bagel_render-3d"
+                ],
+                "filter": {
+                    "name": "bagel_render-3d",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
