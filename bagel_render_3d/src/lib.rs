@@ -1,4 +1,6 @@
 mod options;
+mod point2d;
+mod point3d;
 mod screen;
 use crate::{options::ConsoleOptions, screen::Screen};
 use terminal_size;
