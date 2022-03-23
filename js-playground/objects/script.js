@@ -35,5 +35,23 @@ function iteratingObject() {
     }
 }
 
+function usingThis() {
+    const obj = {
+        key1: "value1",
+        printValue() {
+            console.log(this);
+            console.log(`key1: ${this.key1}`);
+        }
+    };
+
+    obj.printValue(); // here `this` refers to the object `obj` on which it was called. `this` is `obj`
+    let { printValue } = obj;
+    printValue(); // here `printValue` has been called in the context of `window` object, which means that here `this` is `window`
+    // it is possible to bind necessary value to `this` with bind
+    printValue = printValue.bind(obj);
+    printValue(); // here `this` is again `obj`
+}
+
+// usingThis();
 // iteratingObject();
 // usingClass();
