@@ -1,2 +1,3 @@
 mod container_attributes;
-// mod serde_example;
+mod field_attributes;
+mod serde_example;
