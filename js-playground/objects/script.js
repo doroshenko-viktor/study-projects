@@ -52,6 +52,26 @@ function usingThis() {
     printValue(); // here `this` is again `obj`
 }
 
+function thisOnArrowFunctions() {
+    const obj = {
+        key1: "value1",
+        methodFunction() {
+            console.log(`key1 from methodFunction: ${this.key1}`);
+            const internalArrowFunc = () => {
+                console.log(`key1 from internalArrowFunc: ${this.key1}`);
+            }
+            internalArrowFunc();
+        },
+        arrowFunc: () => {
+            console.log(`key1 from arrowFunc: ${this.key1}`);
+        }
+    };
+
+    obj.methodFunction();
+    obj.arrowFunc();
+}
+
+thisOnArrowFunctions();
 // usingThis();
 // iteratingObject();
 // usingClass();
