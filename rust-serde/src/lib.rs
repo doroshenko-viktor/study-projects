@@ -53,7 +53,6 @@ pub fn load_model<T: AsRef<Path>>(path: T) -> Result<Model, ParsingError> {
 #[cfg(test)]
 mod tests {
     use crate::ParsingError;
-
     use super::load_model;
 
     #[test]
