@@ -17,3 +17,5 @@ console.log(inputValue);
 
 $input.setAttribute("value", "new text");
 
+console.log($listByQuery.innerText);
+console.log($listByQuery.innerHTML);
