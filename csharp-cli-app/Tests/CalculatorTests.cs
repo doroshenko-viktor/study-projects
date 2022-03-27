@@ -17,16 +17,4 @@ public class CalculatorTests
         // assert
         result.Should().Be(expectedResult);
     }
-
-    [Theory]
-    [InlineData(2, 1, 1)]
-    public void ShouldSubtractTwoValues__WhenNoOverflow(int x, int y, int expectedResult)
-    {
-        // arrange
-        var calculator = new Calculator();
-        // act
-        var result = calculator.Subtract(x, y);
-        // assert
-        result.Should().Be(expectedResult);
-    }
 }
