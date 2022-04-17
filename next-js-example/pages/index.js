@@ -2,8 +2,9 @@ import Head from 'next/head'
 import Script from 'next/script'
 import Link from 'next/link'
 import Layout from '../components/layout'
+import { getSortedPostsData } from '../lib/posts';
 
-export default function Home() {
+export default function Home({ posts }) {
   return (
     <Layout home>
       <Head>
@@ -25,6 +26,21 @@ export default function Home() {
 
         <Link href="/posts/first-post">first post</Link>
       </main>
+
+      <ul>
+        {posts.map(post => {
+          return <li>{post.title} - {post.date}</li>
+        })}
+      </ul>
     </Layout>
   )
+}
+
+export async function getStaticProps() {
+  const posts = getSortedPostsData();
+  return {
+    props: {
+      posts
+    }
+  };
 }
