@@ -3,6 +3,7 @@ import Script from 'next/script'
 import Link from 'next/link'
 import Layout from '../components/layout'
 import { getSortedPostsData } from '../lib/posts';
+import utilStyles from '../styles/utils.module.css';
 
 export default function Home({ posts }) {
   return (
@@ -27,11 +28,20 @@ export default function Home({ posts }) {
         <Link href="/posts/first-post">first post</Link>
       </main>
 
-      <ul>
-        {posts.map(post => {
-          return <li>{post.title} - {post.date}</li>
-        })}
-      </ul>
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <ul className={utilStyles.list}>
+          {posts.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </li>
+          ))}
+        </ul>
+      </section>
     </Layout>
   )
 }
