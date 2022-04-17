@@ -1,3 +1,5 @@
+mod recorder;
+mod sound_acl;
 mod sound_device;
 
 #[cfg(test)]
