@@ -5,8 +5,14 @@ import Layout from '../components/layout'
 import { getSortedPostsData } from '../lib/posts';
 import utilStyles from '../styles/utils.module.css';
 import Date from '../components/date';
+import { GetStaticProps } from 'next';
+import { HeadPostData } from '../types/post';
 
-export default function Home({ posts }) {
+type Props = {
+  posts: HeadPostData[],
+};
+
+export default function Home({ posts }: Props) {
   return (
     <Layout home>
       <Head>
@@ -49,7 +55,7 @@ export default function Home({ posts }) {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const posts = getSortedPostsData();
   return {
     props: {
