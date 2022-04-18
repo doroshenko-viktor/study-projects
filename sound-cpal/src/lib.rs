@@ -1,6 +1,8 @@
+mod noise_canceller;
 mod recorder;
 mod sound_acl;
 mod sound_device;
+mod sound_player;
 
 #[cfg(test)]
 mod tests {

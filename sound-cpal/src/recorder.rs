@@ -39,7 +39,6 @@ pub fn record() {
 
     std::thread::sleep(std::time::Duration::from_secs(10));
 
-    // stream.pause().expect("error on record stop");
     drop(stream);
     wav_writer
         .lock()
