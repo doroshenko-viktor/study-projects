@@ -1,8 +1,4 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-    sync::{Arc, Mutex},
-};
+use std::{fs::File, io::BufReader, sync::mpsc, thread};
 
 use cpal::{
     traits::{DeviceTrait, HostTrait, StreamTrait},
@@ -15,8 +11,6 @@ pub fn play() {
     let device = host.default_output_device().unwrap();
     let config = device.default_output_config().unwrap();
 
-    const PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/recorded.wav");
-
     let sample_format = config.sample_format();
     let config = StreamConfig::from(config);
 
@@ -28,6 +22,52 @@ pub fn play() {
     stream.play().unwrap();
 
     std::thread::sleep(std::time::Duration::from_millis(2000));
+}
+
+pub fn play_from_file() {
+    let host = cpal::default_host();
+    let device = host.default_output_device().unwrap();
+    let config = device.default_output_config().unwrap();
+    let channels = config.channels() as usize;
+
+    const PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/recorded.wav");
+
+    let file = File::open(PATH).unwrap();
+    let mut wav_reader = hound::WavReader::new(BufReader::new(file)).unwrap();
+
+    let (tx, rx) = mpsc::channel();
+
+    let stream = device
+        .build_output_stream(
+            &config.into(),
+            move |data: &mut [f32], _| {
+                let mut s_ref = wav_reader.samples::<f32>();
+
+                for frame in data.chunks_mut(channels) {
+                    match &s_ref.next() {
+                        Some(Ok(ref x)) => {
+                            let value = cpal::Sample::from::<f32>(x);
+                            for sample in frame.iter_mut() {
+                                *sample = value;
+                            }
+                        }
+                        _ => {
+                            tx.send("finished").unwrap();
+                            break;
+                        }
+                    }
+                }
+            },
+            |err| eprintln!("an error occurred on stream: {}", err),
+        )
+        .unwrap();
+
+    stream.play().expect("error on play");
+
+    let res = rx.recv().unwrap();
+    dbg!(format!("Received: {res}"));
+
+    drop(stream)
 }
 
 fn get_stream<T>(device: &cpal::Device, config: StreamConfig) -> Stream
@@ -79,4 +119,9 @@ where
 #[test]
 fn play_test() {
     play()
+}
+
+#[test]
+fn play_from_file_test() {
+    play_from_file()
 }
