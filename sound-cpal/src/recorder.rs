@@ -6,7 +6,7 @@ use std::{
 
 use cpal::{
     traits::{DeviceTrait, HostTrait, StreamTrait},
-    Host, HostId, Stream,
+    HostId, Stream,
 };
 use hound;
 
