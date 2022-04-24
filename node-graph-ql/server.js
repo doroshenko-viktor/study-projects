@@ -3,6 +3,17 @@ var { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
 
 var schema = buildSchema(`
+  input MessageInput {
+    content: String
+    author: String
+  }
+
+  type Message {
+    id: ID!
+    content: String
+    author: String
+  }
+
   type RandomDie {
     numSides: Int!
     rollOnce: Int!
@@ -14,9 +25,25 @@ var schema = buildSchema(`
     random: Float!
     rollThreeDice: [Int],
     rollDice(numDice: Int!, numSides: Int): [Int],
-    getDie(numSides: Int): RandomDie
+    getDie(numSides: Int): RandomDie,
+    getMessage(id: ID!): Message
+  }
+
+  type Mutation {
+    createMessage(input: MessageInput): Message
+    updateMessage(id: ID!, input: MessageInput): Message
   }
 `);
+
+class Message {
+    constructor(id, { content, author }) {
+        this.id = id;
+        this.content = content;
+        this.author = author;
+    }
+}
+
+var DB = {};
 
 class RandomDie {
     constructor(numSides) {
@@ -37,7 +64,8 @@ class RandomDie {
 }
 
 var root = {
-    quoteOfTheDay: () => {
+    quoteOfTheDay: (args, req) => {
+        console.log(req);
         return Math.random() < 0.5 ? 'Take it easy' : 'Salvation lies within';
     },
     random: () => {
@@ -55,7 +83,26 @@ var root = {
     },
     getDie: ({ numSides }) => {
         return new RandomDie(numSides || 6);
-    }
+    },
+    getMessage: ({ id }) => {
+        if (!DB[id]) {
+            throw new Error(`no message exists with id ${id}`);
+        }
+        return new Message(id, DB[id]);
+    },
+    createMessage: ({ input }) => {
+        var id = require('crypto').randomBytes(10).toString('hex');
+
+        DB[id] = input;
+        return new Message(id, input);
+    },
+    updateMessage: ({ id, input }) => {
+        if (!DB[id]) {
+            throw new Error('no message exists with id ' + id);
+        }
+        DB[id] = input;
+        return new Message(id, input);
+    },
 };
 
 var app = express();
