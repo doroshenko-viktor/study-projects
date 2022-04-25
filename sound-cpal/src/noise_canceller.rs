@@ -23,7 +23,7 @@ pub fn reduce_noise() {
     let (mut producer, mut consumer) = buf.split();
 
     for _ in 0..16 {
-        producer.push(1.0).unwrap();
+        producer.push(0.0).unwrap();
     }
 
     let input_stream = input_device
@@ -55,6 +55,18 @@ pub fn reduce_noise() {
                     *sample = match consumer.pop() {
                         Some(val) => {
                             previous_sample = val;
+                            let ratio = (65f32 * std::f32::consts::PI / 180f32);
+                            let threshold = 0.70;
+
+                            let limit = threshold / ratio.tan();
+
+                            let val = if val < limit {
+                                val * ratio * val / threshold
+                            } else {
+                                val + (1f32 - limit) * val / (1f32 - threshold)
+                            };
+
+                            println!("{val}");
                             val
                         }
                         None => {
