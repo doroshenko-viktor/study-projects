@@ -1,3 +1,4 @@
+mod compressor;
 mod noise_canceller;
 mod recorder;
 mod sound_acl;
