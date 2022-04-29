@@ -13,9 +13,10 @@ const getServedFileName = (requestPath: string) => {
 const server = http.createServer(
   (req: IncomingMessage, res: ServerResponse) => {
     if (!req.url) {
-      return res.writeHead(400, "Bad request");
+      res.writeHead(400, "Bad request");
+      return res.end();
     }
-    console.log(process.cwd());
+
     const requestUrl: UrlWithParsedQuery = url.parse(req.url, true);
     const requestPath = requestUrl.pathname;
     console.info("serving: " + requestPath);
@@ -48,3 +49,36 @@ const server = http.createServer(
 server.listen(8000, () => {
   console.log("listening on port 8000");
 });
+
+export function makeRawHttpRequest<T>(
+  host: string,
+  urlPath: string
+): Promise<T> {
+  const options = {
+    hostname: host,
+    path: urlPath,
+    method: "GET",
+  };
+
+  return new Promise<T>((resolve, reject) => {
+    http
+      .request(options, (res) => {
+        let data = "";
+
+        res.on("data", (chunk) => {
+          data += chunk;
+        });
+
+        res.on("end", () => {
+          const result = JSON.parse(data) as T;
+          console.log("Body:", result);
+          resolve(result);
+        });
+      })
+      .on("error", (err) => {
+        console.log("Error: ", err);
+        reject(err);
+      })
+      .end();
+  });
+}

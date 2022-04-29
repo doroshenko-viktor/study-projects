@@ -95,6 +95,7 @@
   "exclude": [
     "node_modules", // exclude node_modules. excluded by default if no `exclude` section specified
     "**/*.js",
-    "**/*.dev.ts" // exclude all files with specified extension in any folder
+    "**/*.dev.ts", // exclude all files with specified extension in any folder
+    "**/*.test.ts",
   ]
 }
