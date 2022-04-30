@@ -105,17 +105,6 @@ app.MapDelete("/todos/{id}", async (
     return Results.Ok($"Todo with id {id} deleted");
 });
 
-var x = Environment.GetEnvironmentVariables();
-
-foreach (DictionaryEntry item in x)
-{
-    var key = item.Key as string;
-    if (key is not null && (key.StartsWith("DOTNET") || key.StartsWith("ASP")))
-    {
-        logger.LogInformation("Key: {Key} => Value: {Value}", item.Key, item.Value);
-    }
-}
-
 app.Urls.Add("http://localhost:3001");
 
-app.Run($"http://*:{Environment.GetEnvironmentVariable("PORT") ?? "3000"}");
+app.Run($"http://*:{Environment.GetEnvironmentVariable("PORT") ?? "3002"}");
