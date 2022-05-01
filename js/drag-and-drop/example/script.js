@@ -18,13 +18,16 @@ for (const box of $boxes) {
         event.preventDefault();
         event.target.classList.add('drag-over');
     });
+
     box.addEventListener('dragover', (event) => {
         event.preventDefault();
         event.target.classList.add('drag-over');
     });
+
     box.addEventListener('dragleave', (event) => {
         event.target.classList.remove('drag-over');
     });
+
     box.addEventListener('drop', (event) => {
         event.target.classList.remove('drag-over');
         const id = event.dataTransfer.getData('text/plain');
