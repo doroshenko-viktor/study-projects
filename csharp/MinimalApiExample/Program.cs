@@ -1,4 +1,3 @@
-using System.Collections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MinimalApiExample.Dto;

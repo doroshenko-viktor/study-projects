@@ -4,7 +4,6 @@ let newX = 0, newY = 0, startX = 0, startY = 0;
 
 $div.addEventListener('mousedown', (event) => {
     event.preventDefault();
-    console.log(event);
 
     startX = event.pageX;
     startY = event.pageY;
